@@ -1,32 +1,31 @@
-import css from "./Contact.module.css";
-import { FaUser } from "react-icons/fa";
-import { FaPhone } from "react-icons/fa6";
+import { FaUserAlt } from "react-icons/fa";
+import { ImPhone } from "react-icons/im";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contactsSlice";
+import { deleteContact } from "../../redux/contacts/operations";
+import css from "./Contact.module.css";
 
-export default function Contact({ item }) {
+export default function Contact({ data: { name, number, id } }) {
   const dispatch = useDispatch();
-  const handleDeleteContact = () => {
-    dispatch(deleteContact(item.id));
+
+  const handledDelete = () => {
+    dispatch(deleteContact(id));
   };
 
   return (
-    <div className={css.contacts}>
-      <div>
-        <div className={css.icon}>
-          <FaUser />
-          <p className={css.name}>{item.name}</p>
-        </div>
-        <div className={css.icon}>
-          <FaPhone />
-          <p className={css.name}>{item.number}</p>
-        </div>
+    <div className={css.container}>
+      <div className={css.contData}>
+        <p className={css.page}>
+          <FaUserAlt className={css.iconUser} size="20" />
+          {name}
+        </p>
+        <p className={css.page}>
+          <ImPhone className={css.iconPhone} size="20" />
+          {number}
+        </p>
       </div>
-      <div>
-        <button className={css.btn} onClick={handleDeleteContact}>
-          Delete
-        </button>
-      </div>
+      <button className={css.btn} onClick={handledDelete}>
+        Delete
+      </button>
     </div>
   );
 }

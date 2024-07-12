@@ -1,6 +1,10 @@
 body {
-  font-family: sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0;
+  background-color: #f0f1f5;
 }
 
 h1,
@@ -13,14 +17,12 @@ p {
   margin: 0;
 }
 
-ul,
-ol {
+li:last-child {
+  margin-bottom: 0;
+}
+
+ul {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
 }

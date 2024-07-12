@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-right: 20px;
+}
+
+.user {
+  color: black;
+  font-weight: 700;
+}
+
+.btn {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #520d92;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid #111;
+  border-radius: 4px;
+  margin: auto;
+}
