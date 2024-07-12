@@ -2,6 +2,8 @@ import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { fetchContacts, addContact, deleteContact } from "./operations";
 import { selectNameFilter } from "../filters/selectors";
 import { selectContacts } from "./selectors";
+import { logOut } from "../auth/operations";
+
 
 export const handlePeding = (state) => {
     state.isLoading = true;
@@ -22,33 +24,32 @@ const contactsSlice = createSlice({
         builder
             .addCase(fetchContacts.pending, handlePeding)
             .addCase(fetchContacts.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isError = false;
                 state.items = action.payload;
+                state.loading = false;
             })
             .addCase(fetchContacts.rejected, handleRejected)
             .addCase(addContact.pending, handlePeding)
             .addCase(addContact.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isError = false;
                 state.items.push(action.payload);
+                state.loading = false;
             })
             .addCase(addContact.rejected, handleRejected)
             .addCase(deleteContact.pending, handlePeding)
             .addCase(deleteContact.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isError = false;
-                const index = state.items.findIndex(
-                    (contact) => contact.id === action.payload.id
+                state.items = state.items.filter(
+                    (item) => item.id !== action.payload.id
                 );
-                state.items.splice(index, 1);
+                state.loading = false;
             })
-            .addCase(deleteContact.rejected, handleRejected);
+            .addCase(deleteContact.rejected, handleRejected)
+            .addCase(logOut.fulfilled, (state) => {
+                state.items = [];
+            });
     },
 });
 
 export const contactReducer = contactsSlice.reducer;
-
+5
 export const selectVisibleContacts = createSelector(
     [selectContacts, selectNameFilter],
     (contacts, contactFilter) => {
